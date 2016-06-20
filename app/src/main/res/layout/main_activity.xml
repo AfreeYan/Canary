@@ -1,7 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+    >
 
-</LinearLayout>
+    <FrameLayout
+        android:id="@+id/fl_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rb_main_bottom_bar">
+    </FrameLayout>
+
+    <com.afree.canary.widget.bar.RadioBar
+        android:id="@+id/rb_main_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/cyan_50">
+
+        <TextView
+            android:id="@+id/tv_main_bottom_design"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="design"
+            android:textColor="@drawable/main_bottom_tab_selector"/>
+
+        <TextView
+            android:id="@+id/tv_main_bottom_develop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="develop"
+            android:textColor="@drawable/main_bottom_tab_selector"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="others"
+            android:textColor="@drawable/main_bottom_tab_selector"/>
+    </com.afree.canary.widget.bar.RadioBar>
+
+</RelativeLayout>

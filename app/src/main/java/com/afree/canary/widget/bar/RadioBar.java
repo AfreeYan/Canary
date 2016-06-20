@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
  * @author afree8909@gmail.com on 6/14/16.
  */
 public class RadioBar extends LinearLayout {
+  private final static int VALID_POSITION = -1;
   private View.OnClickListener mChildOnClickListener = new View.OnClickListener() {
     @Override
     public void onClick(View v) {
@@ -21,7 +22,7 @@ public class RadioBar extends LinearLayout {
   };
   private OnSelectedChangeListener mOnSelectedChangeListener;
 
-  private int mSelectedPosition = -1;
+  private int mSelectedPosition = VALID_POSITION;
 
   public RadioBar(Context context) {
     super(context);
@@ -48,12 +49,6 @@ public class RadioBar extends LinearLayout {
     super.addView(child, index, params);
   }
 
-  @Override
-  protected void onFinishInflate() {
-    super.onFinishInflate();
-    setChecked(0);
-  }
-
   public void setChecked(int position) {
     if (getChildCount() > position) {
       performChildClick(getChildAt(position));
@@ -75,17 +70,17 @@ public class RadioBar extends LinearLayout {
     for (int i = 0; i < childCount; i++) {
       if (v == getChildAt(i)) {
         v.setSelected(true);
-        mSelectedPosition = i;
         if (mOnSelectedChangeListener != null) {
           mOnSelectedChangeListener.onSelectedChanged(v, i);
         }
+        mSelectedPosition = i;
         break;
       }
     }
   }
 
   public interface OnSelectedChangeListener {
-    void onSelectedChanged(View child, int position);
+    void onSelectedChanged(View child, int curPos);
 
   }
 
