@@ -1,4 +1,4 @@
-package com.afree.canary.sample.main.activity;
+package com.afree.canary.sample.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -53,12 +53,13 @@ public class MainActivity extends BaseToolbarActivity {
     Fragment curFragment = fm.findFragmentByTag(curName);
     if (curFragment != null) {
       ft.show(curFragment);
-      if (mLastFragment != null) {
-        ft.hide(mLastFragment);
-      }
     } else {
       curFragment = Fragment.instantiate(this, curName);
       ft.add(R.id.fl_main, curFragment, curName);
+      ft.show(curFragment);
+    }
+    if (mLastFragment != null) {
+      ft.hide(mLastFragment);
     }
     mLastFragment = curFragment;
 
