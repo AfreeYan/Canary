@@ -17,6 +17,12 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".sample.design.DesignActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            />
+
     </application>
 
 </manifest>
