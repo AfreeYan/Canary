@@ -1,45 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
     >
+
+
+    <com.afree.canary.widget.bar.RadioBarLayout
+        android:id="@+id/rb_main_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/cyan_50"
+        android:gravity="center">
+
+        <com.afree.canary.widget.bar.CommonBottomTab
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            app:ivSelectedColor="@color/blue_700"
+            app:ivSrc="@mipmap/main_bottom_design_icon"
+            app:ivUnSelectedColor="@color/grey_400"
+            app:tvSelector="@color/main_bottom_tab_selector"
+            app:tvText="Design"/>
+
+        <com.afree.canary.widget.bar.CommonBottomTab
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            app:ivSelectedColor="@color/blue_700"
+            app:ivSrc="@mipmap/main_bottom_develop_icon"
+            app:ivUnSelectedColor="@color/grey_400"
+            app:tvSelector="@color/main_bottom_tab_selector"
+            app:tvText="Develop"
+            />
+
+        <com.afree.canary.widget.bar.CommonBottomTab
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            app:ivSelectedColor="@color/blue_700"
+            app:ivSrc="@mipmap/main_bottom_others_icon"
+            app:ivUnSelectedColor="@color/grey_400"
+            app:tvSelector="@color/main_bottom_tab_selector"
+            app:tvText="Others"
+            />
+    </com.afree.canary.widget.bar.RadioBarLayout>
 
     <FrameLayout
         android:id="@+id/fl_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/rb_main_bottom_bar">
+        android:layout_above="@id/rb_main_bottom_bar">
     </FrameLayout>
-
-    <com.afree.canary.widget.bar.RadioBar
-        android:id="@+id/rb_main_bottom_bar"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/cyan_50">
-
-        <TextView
-            android:id="@+id/tv_main_bottom_design"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="design"
-            android:textColor="@drawable/main_bottom_tab_selector"/>
-
-        <TextView
-            android:id="@+id/tv_main_bottom_develop"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="develop"
-            android:textColor="@drawable/main_bottom_tab_selector"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="others"
-            android:textColor="@drawable/main_bottom_tab_selector"/>
-    </com.afree.canary.widget.bar.RadioBar>
-
 </RelativeLayout>

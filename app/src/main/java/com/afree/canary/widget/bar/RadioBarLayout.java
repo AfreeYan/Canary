@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
  * 
  * @author afree8909@gmail.com on 6/14/16.
  */
-public class RadioBar extends LinearLayout {
+public class RadioBarLayout extends LinearLayout {
   private final static int VALID_POSITION = -1;
   private View.OnClickListener mChildOnClickListener = new View.OnClickListener() {
     @Override
@@ -24,18 +24,13 @@ public class RadioBar extends LinearLayout {
 
   private int mSelectedPosition = VALID_POSITION;
 
-  public RadioBar(Context context) {
+  public RadioBarLayout(Context context) {
     super(context);
   }
 
-  public RadioBar(Context context, AttributeSet attrs) {
+  public RadioBarLayout(Context context, AttributeSet attrs) {
     super(context, attrs);
 
-  }
-
-  @Override
-  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
   }
 
   @Override
@@ -59,22 +54,18 @@ public class RadioBar extends LinearLayout {
     if (v == null) {
       return;
     }
-    View oldSelected = getChildAt(mSelectedPosition);
-    if (oldSelected == v) {
-      return;
-    }
-    if (oldSelected != null) {
-      oldSelected.setSelected(false);
-    }
     int childCount = getChildCount();
+    View child;
     for (int i = 0; i < childCount; i++) {
-      if (v == getChildAt(i)) {
+      child = getChildAt(i);
+      if (v == child) {
         v.setSelected(true);
         if (mOnSelectedChangeListener != null) {
           mOnSelectedChangeListener.onSelectedChanged(v, i);
         }
         mSelectedPosition = i;
-        break;
+      } else {
+        child.setSelected(false);
       }
     }
   }

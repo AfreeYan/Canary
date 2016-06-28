@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CommonBottomTab">
+        <attr name="tvSelector" format="reference" />
+        <attr name="tvText" format="string" />
+        <attr name="ivSrc" format="reference" />
+        <attr name="ivSelectedColor" format="reference" />
+        <attr name="ivUnSelectedColor" format="reference" />
+    </declare-styleable>
+
+</resources>

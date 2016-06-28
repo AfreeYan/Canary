@@ -12,7 +12,7 @@ import com.afree.canary.base.BaseToolbarActivity;
 import com.afree.canary.sample.main.fragment.DesignFragment;
 import com.afree.canary.sample.main.fragment.DevelopFragment;
 import com.afree.canary.sample.main.fragment.OthersFragment;
-import com.afree.canary.widget.bar.RadioBar;
+import com.afree.canary.widget.bar.RadioBarLayout;
 
 /**
  * @author afree on 5/30/16.
@@ -32,9 +32,10 @@ public class MainActivity extends BaseToolbarActivity {
 
   private void initView(Bundle savedInstanceState) {
     setContentView(R.layout.main_activity);
-    RadioBar radioBar = (RadioBar) findViewById(R.id.rb_main_bottom_bar);
+    RadioBarLayout radioBar = (RadioBarLayout) findViewById(R.id.rb_main_bottom_bar);
     assert radioBar != null;
-    radioBar.setOnSelectedListener(new RadioBar.OnSelectedChangeListener() {
+
+    radioBar.setOnSelectedListener(new RadioBarLayout.OnSelectedChangeListener() {
       @Override
       public void onSelectedChanged(View child, int curPos) {
         switchFragment(curPos);
