@@ -4,17 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 
 import com.afree.canary.R;
 import com.afree.canary.base.BaseActivity;
-import com.afree.canary.sample.design.fragment.CoordinatorLayoutFragment;
 
 /**
  * @author afree8909@gmail.com on 6/23/16.
  */
 public class DesignActivity extends BaseActivity {
+
+  private final static String KEY_FRAGMENT_NAME = "fragment_name";
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -22,17 +23,22 @@ public class DesignActivity extends BaseActivity {
 
     setContentView(R.layout.frame_activity);
 
+    String fragmentName = getIntent().getStringExtra(KEY_FRAGMENT_NAME);
 
-    Fragment f = Fragment.instantiate(this, CoordinatorLayoutFragment.class.getName());
+    Fragment f = Fragment.instantiate(this, fragmentName);
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fl_base_container, f).commit();
   }
 
-  public static void launch(Context context) {
+  public static void launch(Context context, String fragmentName) {
+    if (TextUtils.isEmpty(fragmentName)) {
+      return;
+    }
     Intent intent = new Intent(context, DesignActivity.class);
     if (!(context instanceof Activity)) {
       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     }
+    intent.putExtra(KEY_FRAGMENT_NAME, fragmentName);
     context.startActivity(intent);
   }
 

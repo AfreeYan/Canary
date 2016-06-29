@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.afree.canary.R;
 import com.afree.canary.base.BaseFragment;
 import com.afree.canary.sample.main.adapter.DesignListAdapter;
+import com.afree.canary.sample.main.adapter.StringListAdapter;
 
 import java.util.Arrays;
 
@@ -20,14 +21,15 @@ import java.util.Arrays;
 public class OthersFragment extends BaseFragment {
 
   private String[] items = {
-          "TencentOpen/GT", "blockcanary", "drawable-optimizer", "hotfix",
-          "recyclerView", "dialog", "search", "plugin","Android-QuickSideBar"
+      "TencentOpen/GT", "blockcanary", "drawable-optimizer", "hotfix",
+      "recyclerView", "dialog", "search", "plugin", "Android-QuickSideBar"
   };
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.main_others_fragment,container,false);
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+    return inflater.inflate(R.layout.main_others_fragment, container, false);
   }
 
   @Override
@@ -39,7 +41,7 @@ public class OthersFragment extends BaseFragment {
       recyclerView = (RecyclerView) container.findViewById(R.id.rv_others);
     }
 
-    DesignListAdapter adapter = new DesignListAdapter();
+    StringListAdapter adapter = new StringListAdapter();
     adapter.setData(Arrays.asList(items));
 
     LinearLayoutManager lm = new LinearLayoutManager(getContext());

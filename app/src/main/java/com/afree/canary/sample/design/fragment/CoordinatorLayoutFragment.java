@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.afree.canary.R;
 import com.afree.canary.base.BaseFragment;
 import com.afree.canary.sample.main.adapter.DesignListAdapter;
+import com.afree.canary.sample.main.adapter.StringListAdapter;
 
 import java.util.Arrays;
 
@@ -50,7 +51,7 @@ public class CoordinatorLayoutFragment extends BaseFragment {
     RecyclerView recyclerView = (RecyclerView) mContainer.findViewById(R.id.rv_coordinator);
 
 
-    DesignListAdapter adapter = new DesignListAdapter();
+    StringListAdapter adapter = new StringListAdapter();
     adapter.setData(Arrays.asList(items));
 
     LinearLayoutManager lm = new LinearLayoutManager(getContext());

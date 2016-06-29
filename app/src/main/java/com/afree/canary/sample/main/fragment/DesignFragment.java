@@ -10,19 +10,14 @@ import android.view.ViewGroup;
 
 import com.afree.canary.R;
 import com.afree.canary.base.BaseFragment;
+import com.afree.canary.sample.design.model.DesignFakeDataCreator;
 import com.afree.canary.sample.main.adapter.DesignListAdapter;
-
-import java.util.Arrays;
 
 /**
  * @author afree8909@gmail.com on 6/20/16.
  */
 public class DesignFragment extends BaseFragment {
 
-  private String[] items = {
-      "CoordinatorLayout", "NavigationView", "AppBarLayout", "CollapsingToolbarLayout",
-      "CollapsingToolbarLayout", "Snackbar", "FloatingActionButton", "TextInputLayout"
-  };
 
   @Nullable
   @Override
@@ -41,7 +36,7 @@ public class DesignFragment extends BaseFragment {
     }
 
     DesignListAdapter adapter = new DesignListAdapter();
-    adapter.setData(Arrays.asList(items));
+    adapter.setData(DesignFakeDataCreator.create());
 
     LinearLayoutManager lm = new LinearLayoutManager(getContext());
     lm.setOrientation(LinearLayoutManager.VERTICAL);
