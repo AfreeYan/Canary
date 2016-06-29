@@ -5,6 +5,8 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,6 +22,10 @@ public class CommonBottomTab extends LinearLayout {
   private TextView mText;
   private int mUnselectedColor = Color.DKGRAY;
   private int mSelectedColor = Color.DKGRAY;
+  private boolean mShouldAnimate = true;
+  private static final int ANIMATE_DURATION = 150;
+  private float mSelectScale = 1.0f;
+  private float mUnSelectScale = 0.86f;
 
 
   public CommonBottomTab(Context context) {
@@ -65,12 +71,33 @@ public class CommonBottomTab extends LinearLayout {
   protected void onFinishInflate() {
     super.onFinishInflate();
     invalidateIconColor();
+    performAnimate();
   }
 
   @Override
   public void setSelected(boolean selected) {
     super.setSelected(selected);
     invalidateIconColor();
+    performAnimate();
+  }
+
+  private void performAnimate() {
+    if(!mShouldAnimate){
+      return;
+    }
+    if (isSelected()) {
+      ViewPropertyAnimatorCompat titleAnimator = ViewCompat.animate(this)
+          .setDuration(ANIMATE_DURATION)
+          .scaleX(mSelectScale)
+          .scaleY(mSelectScale);
+      titleAnimator.start();
+    } else {
+      ViewPropertyAnimatorCompat titleAnimator = ViewCompat.animate(this)
+          .setDuration(ANIMATE_DURATION)
+          .scaleX(mUnSelectScale)
+          .scaleY(mUnSelectScale);
+      titleAnimator.start();
+    }
   }
 
   /**
@@ -103,5 +130,17 @@ public class CommonBottomTab extends LinearLayout {
 
   public void setSelectedColor(int selectedColor) {
     mSelectedColor = selectedColor;
+  }
+
+  public void setSelectScale(float selectScale) {
+    mSelectScale = selectScale;
+  }
+
+  public void setShouldAnimate(boolean shouldAnimate) {
+    mShouldAnimate = shouldAnimate;
+  }
+
+  public void setUnSelectScale(float unSelectScale) {
+    mUnSelectScale = unSelectScale;
   }
 }

@@ -59,13 +59,18 @@ public class RadioBarLayout extends LinearLayout {
     for (int i = 0; i < childCount; i++) {
       child = getChildAt(i);
       if (v == child) {
+        if (i == mSelectedPosition) {
+          break;
+        }
         v.setSelected(true);
         if (mOnSelectedChangeListener != null) {
           mOnSelectedChangeListener.onSelectedChanged(v, i);
         }
         mSelectedPosition = i;
       } else {
-        child.setSelected(false);
+        if (child.isSelected()) {
+          child.setSelected(false);
+        }
       }
     }
   }
