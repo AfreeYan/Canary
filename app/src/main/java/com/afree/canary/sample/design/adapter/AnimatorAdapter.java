@@ -4,20 +4,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.SparseArray;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.TextView;
 
 import com.afree.canary.sample.design.model.AnimatorModel;
-import com.afree.canary.widget.pager.PagerSlidingTabStrip;
 import com.afree.utils.GlobalConfig;
 
 /**
  * @author afree8909@gmail.com on 7/5/16.
  */
-public class AnimatorAdapter extends FragmentPagerAdapter
-    implements
-      PagerSlidingTabStrip.IconTabProvider {
+public class AnimatorAdapter extends FragmentPagerAdapter {
   private SparseArray<AnimatorModel> mSparseArray;
 
   public AnimatorAdapter(FragmentManager fm, SparseArray<AnimatorModel> sparseArray) {
@@ -41,11 +35,4 @@ public class AnimatorAdapter extends FragmentPagerAdapter
     return mSparseArray.get(position).getName();
   }
 
-  @Override
-  public View getTab(int position) {
-    TextView tv = new TextView(GlobalConfig.getContext());
-    tv.setText(mSparseArray.get(position).getName());
-    tv.setGravity(Gravity.CENTER);
-    return tv;
-  }
 }
