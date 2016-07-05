@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -192,7 +193,9 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
       if (pager.getAdapter() instanceof IconTabProvider) {
         addTab(i, ((IconTabProvider) pager.getAdapter()).getTab(i));
       } else {
-        addTextTab(i, pager.getAdapter().getPageTitle(i).toString());
+        if (!TextUtils.isEmpty(pager.getAdapter().getPageTitle(i))) {
+          addTextTab(i, pager.getAdapter().getPageTitle(i).toString());
+        }
       }
 
     }

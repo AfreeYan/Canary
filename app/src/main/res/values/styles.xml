@@ -8,4 +8,15 @@
         <item name="colorAccent">@color/green_200</item>
     </style>
 
+
+    <style name="tab_design_animator">
+        <item name="android:background">@color/white</item>
+        <item name="pDividerColor">@color/transparent</item>
+        <item name="pDividerPadding">0dp</item>
+        <item name="pTabPaddingLeftRight">0dp</item>
+        <item name="pShouldExpand">true</item>
+        <item name="pIndicatorColor">@color/indigo_500</item>
+        <item name="pIndicatorHeight">1dp</item>
+    </style>
+
 </resources>
