@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -22,7 +23,8 @@ public class SideBar extends View {
 
   private static final float TEXT_SIZE_SCALE = 0.7f;
   private static final int INVALID_VALUE = -1;
-  private static final float NO_SCALE = 1f;
+  private static final int ALPHA_MAX = 255;
+  private static final int ALPHA_MIN = 50;
   private final int mScaledTouchSlop;
   private final float mDensity;
   private Paint mPaint;
@@ -33,14 +35,16 @@ public class SideBar extends View {
   private int mActivityPointerId = INVALID_VALUE;
 
   private RectF mValidRect = new RectF();
+  private int mTransitionItemCount = 4;
   private int mCurrentIndex;
   private float mActionDownY;
   private float mCurrentY;
   private float mWidth;
-  private float mHeight;
   private float mItemHeight;
   private boolean mIsMoving;
   private boolean mIsEventOver;
+
+  private OnItemSelectedListener mListener;
 
 
   public SideBar(Context context) {
@@ -67,13 +71,13 @@ public class SideBar extends View {
   protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     super.onSizeChanged(w, h, oldw, oldh);
     mWidth = w - getPaddingLeft() - getPaddingRight();
-    mHeight = h - getPaddingTop() - getPaddingBottom();
+    float height = h - getPaddingTop() - getPaddingBottom();
 
     int entriesLength = getEntriesLength();
     if (entriesLength == 0) {
       return;
     }
-    mItemHeight = mHeight / entriesLength;
+    mItemHeight = height / entriesLength;
     mTextSize = (int) (mItemHeight * TEXT_SIZE_SCALE);
     mPaint.setTextSize(mTextSize);
 
@@ -124,6 +128,11 @@ public class SideBar extends View {
         break;
       case MotionEvent.ACTION_UP:
       case MotionEvent.ACTION_CANCEL:
+        if (mListener != null) {
+          if (mCurrentIndex >= 0 && mCurrentIndex < getEntriesLength()) {
+            mListener.onItemSelected(mCurrentIndex, String.valueOf(mEntries[mCurrentIndex]));
+          }
+        }
 
         mIsEventOver = mIsMoving;
         mIsMoving = false;
@@ -141,44 +150,53 @@ public class SideBar extends View {
   protected void onDraw(Canvas canvas) {
     super.onDraw(canvas);
 
+    float itemY;
+    float dY;
+    float dYFactor; // distance from current Y position to item position
+    float dX; // transition distance of x for each item
+    int alpha;
+
+
     for (int i = 0; i < getEntriesLength(); i++) {
-      float itemY = mItemHeight * (i + 1) + getPaddingTop();
+      itemY = mItemHeight * i + getPaddingTop();
+      dY = Math.abs(mCurrentY - itemY);
+      dYFactor = dY / mItemHeight;
 
-      float scale;
-      if (mCurrentIndex == i && i != 0 && i != getEntriesLength() - 1) {
-        scale = 2.16f;
+
+      if (mIsEventOver || !mIsMoving) { // set to initial status
+        alpha = ALPHA_MAX;
+        dX = 0;
+        mPaint.setTextSize((float) (mTextSize));
+        mPaint.setTypeface(Typeface.DEFAULT);
       } else {
-        float maxPos = Math.abs((mCurrentY - itemY) / mHeight * 7f);
-        scale = Math.max(NO_SCALE, 2.2f - maxPos);
+        if (dYFactor <= mTransitionItemCount) {
+          alpha = Math.max(ALPHA_MIN, (int) (ALPHA_MAX - dY));
+          dX = mTransitionItemCount * mItemHeight - dY;
 
-        if (mIsEventOver || !mIsMoving) {
-          scale = NO_SCALE;
+
+          mPaint.setTextSize((float) (1.5 * mTextSize));
+          mPaint.setTypeface(Typeface.DEFAULT_BOLD);
+
+        } else {// set to initial status
+          alpha = ALPHA_MAX;
+          dX = 0;
+          mPaint.setTextSize((float) (mTextSize));
+          mPaint.setTypeface(Typeface.DEFAULT);
         }
-
       }
+
       canvas.save();
-      canvas.scale(scale, scale, mWidth + 3 * mTextSize, itemY);
-
-      if (scale == NO_SCALE) {
-        mPaint.setAlpha(255);
-      } else {
-        int alpha = (int) (255 * (1 - Math.min(0.9, scale - NO_SCALE)));
-        if (mCurrentIndex == i) {
-          alpha = 255;
-        }
-        mPaint.setAlpha(alpha);
-      }
+      canvas.translate(-dX, 0);
+      mPaint.setAlpha(alpha);
 
       CharSequence c = mEntries[i];
-
-      canvas.drawText(String.valueOf(c), mWidth - mTextSize, itemY, mPaint);
+      canvas.drawText(String.valueOf(c), mWidth - mTextSize, itemY + mItemHeight, mPaint);
       canvas.restore();
+
     }
     if (mCurrentIndex == INVALID_VALUE && mIsEventOver) {
       mIsEventOver = false;
       postInvalidateDelayed(100);
-    } else {
-      mIsEventOver = false;
     }
   }
 
@@ -194,6 +212,13 @@ public class SideBar extends View {
   public void setTextColor(int textColor) {
     mTextColor = textColor;
     invalidate();
+  }
+
+  public void setTransitionItemCount(int transitionItemCount) {
+    if (transitionItemCount < 1 || transitionItemCount > 7) {
+      return;
+    }
+    mTransitionItemCount = transitionItemCount;
   }
 
   private int getEntriesLength() {
@@ -221,4 +246,11 @@ public class SideBar extends View {
     }
   }
 
+  public interface OnItemSelectedListener {
+    void onItemSelected(int position, String data);
+  }
+
+  public void setListener(OnItemSelectedListener listener) {
+    mListener = listener;
+  }
 }
