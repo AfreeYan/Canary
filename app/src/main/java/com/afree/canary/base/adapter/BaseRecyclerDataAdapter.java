@@ -12,7 +12,6 @@ import java.util.List;
  */
 public abstract class BaseRecyclerDataAdapter<T, VH extends RecyclerView.ViewHolder>
     extends RecyclerView.Adapter<VH> {
-
   private List<T> mData;
 
   public int getCount() {
@@ -37,7 +36,7 @@ public abstract class BaseRecyclerDataAdapter<T, VH extends RecyclerView.ViewHol
   }
 
   public T getItem(int position) {
-    if (mData == null || getCount() < position) {
+    if (mData == null || getCount() <= position) {
       return null;
     }
     return mData.get(position);

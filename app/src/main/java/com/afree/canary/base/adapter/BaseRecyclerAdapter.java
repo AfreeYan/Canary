@@ -32,7 +32,7 @@ public abstract class BaseRecyclerAdapter<T>
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
 
-    private final BaseController mBaseController;
+    public final BaseController mBaseController;
 
     public ViewHolder(View itemView, BaseController controller) {
       super(itemView);
