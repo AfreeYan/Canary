@@ -5,10 +5,6 @@
     android:layout_height="80dp"
     android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/white"/>
 
     <TextView
         android:id="@+id/tv_name_item_design"

@@ -1,15 +1,15 @@
-package com.afree.canary.sample.design.model;
+package com.afree.canary.sample.main.model;
 
 /**
  * @author afree8909@gmail.com on 6/29/16.
  */
-public class DesignModel {
+public class CommonModel {
 
   private String mName;
 
   private String mFragmentName;
 
-  public DesignModel(String name, String fragmentName) {
+  public CommonModel(String name, String fragmentName) {
     mName = name;
     mFragmentName = fragmentName;
   }

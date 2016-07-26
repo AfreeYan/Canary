@@ -16,8 +16,8 @@ public abstract class HeaderAndFooterRecyclerAdapter<T> extends BaseRecyclerAdap
   protected static final int ITEM_VIEW_TYPE_HEADER = 100;
   protected static final int ITEM_VIEW_TYPE_FOOTER = 101;
 
-  protected View mHeader;
-  protected View mFooter;
+  private View mHeader;
+  private View mFooter;
   private Object mHeaderData;
   private Object mFooterData;
 
@@ -85,5 +85,13 @@ public abstract class HeaderAndFooterRecyclerAdapter<T> extends BaseRecyclerAdap
   public void setFooterData(Object footerData) {
     mFooterData = footerData;
     notifyDataSetChanged();
+  }
+
+  public View getHeader() {
+    return mHeader;
+  }
+
+  public View getFooter() {
+    return mFooter;
   }
 }

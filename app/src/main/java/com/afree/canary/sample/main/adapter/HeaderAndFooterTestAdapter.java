@@ -16,9 +16,9 @@ public class HeaderAndFooterTestAdapter extends HeaderAndFooterRecyclerAdapter<S
   @Override
   protected View newView(ViewGroup parent, int type) {
     if (type == ITEM_VIEW_TYPE_HEADER) {
-      return mHeader;
+      return getHeader();
     } else if (type == ITEM_VIEW_TYPE_FOOTER) {
-      return mFooter;
+      return getFooter();
     }
     return DesignItemContainer.newInstance(parent);
   }

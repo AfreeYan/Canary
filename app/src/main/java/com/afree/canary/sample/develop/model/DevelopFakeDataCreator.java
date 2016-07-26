@@ -1,8 +1,7 @@
-package com.afree.canary.sample.design.model;
+package com.afree.canary.sample.develop.model;
 
-import com.afree.canary.sample.design.fragment.AnimatorFragment;
-import com.afree.canary.sample.design.fragment.CoordinatorLayoutFragment;
 import com.afree.canary.sample.main.model.CommonModel;
+import com.afree.canary.sample.develop.fragment.RecyclerFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,15 +9,14 @@ import java.util.List;
 /**
  * @author afree8909@gmail.com on 6/29/16.
  */
-public class DesignFakeDataCreator {
+public class DevelopFakeDataCreator {
 
   private static final String[] NAMES = {
-      "Animator", "CoordinatorLayout", "NavigationView", "AppBarLayout", "CollapsingToolbarLayout",
-      "CollapsingToolbarLayout", "Snackbar", "FloatingActionButton", "TextInputLayout"
+      "RecyclerView"
   };
 
   private static final String[] FRAGMENT_NAMES = {
-      AnimatorFragment.class.getName(), CoordinatorLayoutFragment.class.getName()
+      RecyclerFragment.class.getName()
   };
 
 
