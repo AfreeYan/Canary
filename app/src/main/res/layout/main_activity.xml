@@ -48,7 +48,7 @@
     </com.afree.canary.widget.bar.RadioBarLayout>
 
     <FrameLayout
-        android:id="@+id/fl_main"
+        android:id="@+id/fl_base_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/rb_main_bottom_bar">

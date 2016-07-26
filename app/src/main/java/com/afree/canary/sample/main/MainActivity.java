@@ -56,7 +56,7 @@ public class MainActivity extends BaseToolbarActivity {
       ft.show(curFragment);
     } else {
       curFragment = Fragment.instantiate(this, curName);
-      ft.add(R.id.fl_main, curFragment, curName);
+      ft.add(R.id.fl_base_container, curFragment, curName);
       ft.show(curFragment);
     }
     if (mLastFragment != null) {

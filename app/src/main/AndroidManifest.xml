@@ -23,6 +23,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             />
+        <activity
+            android:name=".sample.develop.DevelopActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            />
 
     </application>
 
