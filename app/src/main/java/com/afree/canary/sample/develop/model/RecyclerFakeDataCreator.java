@@ -34,4 +34,5 @@ public class RecyclerFakeDataCreator {
     }
     return list;
   }
+
 }

@@ -28,12 +28,11 @@ public class RecyclerController extends BaseController<View, CommonModel> {
       tv.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-          Context context = v.getContext();
 
           Activity activity = ActivityUtils.findActivity(v);
           if (activity instanceof BaseActivity) {
-            Fragment f = Fragment.instantiate(context, commonModel.getFragmentName());
-            ((BaseActivity) context).replace(f, true);
+            Fragment f = Fragment.instantiate(activity, commonModel.getFragmentName());
+            ((BaseActivity) activity).replace(f, true);
           }
         }
       });
