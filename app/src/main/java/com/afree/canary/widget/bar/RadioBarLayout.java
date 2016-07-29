@@ -1,6 +1,8 @@
 package com.afree.canary.widget.bar;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,4 +86,51 @@ public class RadioBarLayout extends LinearLayout {
     mOnSelectedChangeListener = listener;
   }
 
+  @Override
+  protected Parcelable onSaveInstanceState() {
+    Parcelable parcelable = super.onSaveInstanceState();
+    SavedState ss = new SavedState(parcelable);
+    ss.selectedPosition = mSelectedPosition;
+    return ss;
+  }
+
+
+  @Override
+  protected void onRestoreInstanceState(Parcelable state) {
+    SavedState ss = (SavedState) state;
+
+    super.onRestoreInstanceState(ss.getSuperState());
+    setChecked(ss.selectedPosition);
+  }
+
+  static class SavedState extends BaseSavedState {
+    int selectedPosition;
+
+    SavedState(Parcelable superState) {
+      super(superState);
+    }
+
+    private SavedState(Parcel in) {
+      super(in);
+      selectedPosition = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+      super.writeToParcel(dest, flags);
+      dest.writeInt(selectedPosition);
+    }
+
+
+    public static final Parcelable.Creator<SavedState> CREATOR =
+        new Parcelable.Creator<SavedState>() {
+          public SavedState createFromParcel(Parcel in) {
+            return new SavedState(in);
+          }
+
+          public SavedState[] newArray(int size) {
+            return new SavedState[size];
+          }
+        };
+  }
 }
