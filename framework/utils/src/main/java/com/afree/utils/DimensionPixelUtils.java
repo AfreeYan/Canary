@@ -48,9 +48,9 @@ public class DimensionPixelUtils {
    * @param value
    * @return
    */
-  public static float dip2px(Context context, float value) {
+  public static int dip2px(Context context, float value) {
     DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-    return value * metrics.density;
+    return (int) (value * metrics.density);
   }
 
   /**

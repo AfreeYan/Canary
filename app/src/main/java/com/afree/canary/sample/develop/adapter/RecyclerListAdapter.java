@@ -20,7 +20,7 @@ public class RecyclerListAdapter extends HeaderAndFooterRecyclerAdapter {
     View view = ViewUtils.newInstance(parent, R.layout.common_card_tv);
     LinearLayout.LayoutParams params =
         new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-            (int) DimensionPixelUtils.dip2px(parent.getContext(), 80));
+            DimensionPixelUtils.dip2px(parent.getContext(), 80));
     view.setLayoutParams(params);
     return view;
   }

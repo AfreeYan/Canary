@@ -1,6 +1,7 @@
 package com.afree.canary.widget.load;
 
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.afree.canary.base.BaseController;
 import com.afree.canary.base.adapter.BaseRecyclerAdapter;
@@ -20,6 +21,18 @@ public abstract class HeaderAndFooterRecyclerAdapter<T> extends BaseRecyclerAdap
   private View mFooter;
   private Object mHeaderData;
   private Object mFooterData;
+  private BaseController mHeaderController;
+  private BaseController mFooterController;
+
+  @Override
+  public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    if (viewType == ITEM_VIEW_TYPE_HEADER) {
+      return new ViewHolder(mHeader, mHeaderController);
+    } else if (viewType == ITEM_VIEW_TYPE_FOOTER) {
+      return new ViewHolder(mFooter, mFooterController);
+    }
+    return super.onCreateViewHolder(parent, viewType);
+  }
 
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
@@ -93,5 +106,13 @@ public abstract class HeaderAndFooterRecyclerAdapter<T> extends BaseRecyclerAdap
 
   public View getFooter() {
     return mFooter;
+  }
+
+  public void setFooterController(BaseController footerController) {
+    mFooterController = footerController;
+  }
+
+  public void setHeaderController(BaseController headerController) {
+    mHeaderController = headerController;
   }
 }

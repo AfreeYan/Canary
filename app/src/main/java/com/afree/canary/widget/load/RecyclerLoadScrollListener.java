@@ -20,7 +20,7 @@ public abstract class RecyclerLoadScrollListener extends RecyclerView.OnScrollLi
   /**
    * {@link #onLoadMore()} will invoked if the value >(childCount - mLastVisibleItemPosition)
    */
-  private int mPreLoadValue = 1;
+  private int mPreLoadValue = 2;
 
   @Override
   public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -36,10 +36,13 @@ public abstract class RecyclerLoadScrollListener extends RecyclerView.OnScrollLi
     if (!mEnabled) {
       return;
     }
+
+    if (newState != RecyclerView.SCROLL_STATE_IDLE) {
+      return;
+    }
     RecyclerView.LayoutManager lm = recyclerView.getLayoutManager();
-    int childCount = lm.getChildCount();
-    if (newState == RecyclerView.SCROLL_STATE_IDLE
-        && (mPreLoadValue >= (childCount - mLastVisibleItemPosition))) {
+    int childCount = lm.getItemCount();
+    if ((mPreLoadValue >= (childCount - mLastVisibleItemPosition))) {
       onLoadMore();
     }
   }

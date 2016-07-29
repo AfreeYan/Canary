@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Canary</string>
+
+    <string name="text_loading">正在加载中…</string>
 </resources>

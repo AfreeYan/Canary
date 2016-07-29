@@ -2,6 +2,7 @@ package com.afree.canary.sample.develop.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,11 +12,12 @@ import android.view.ViewGroup;
 import com.afree.canary.R;
 import com.afree.canary.base.BaseFragment;
 import com.afree.canary.sample.develop.adapter.RecyclerListAdapter;
-import com.afree.canary.sample.develop.model.RecyclerFakeDataCreator;
 import com.afree.canary.sample.main.model.CommonModel;
+import com.afree.canary.widget.decoration.LoadFooterView;
 import com.afree.canary.widget.load.RecyclerLoadScrollListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author afree8909@gmail.com on 7/26/16.
@@ -37,6 +39,7 @@ public class RecyclerListLoadFragment extends BaseFragment {
     final RecyclerListAdapter adapter = new RecyclerListAdapter();
 
     adapter.setData(makeFakeData(0));
+    adapter.setFooter(new LoadFooterView(getContext()));
 
     recyclerView.setAdapter(adapter);
 
@@ -51,12 +54,20 @@ public class RecyclerListLoadFragment extends BaseFragment {
     LinearLayoutManager manager = new LinearLayoutManager(recyclerView.getContext());
     recyclerView.setLayoutManager(manager);
 
+    final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) mContainer.findViewById(R.id.swipe_recycler_develop);
+    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+      @Override
+      public void onRefresh() {
+        adapter.setData(makeFakeData(0));
+        swipeRefreshLayout.setRefreshing(false);
+      }
+    });
 
   }
 
   private ArrayList<CommonModel> makeFakeData(int start) {
     ArrayList<CommonModel> list = new ArrayList<>();
-    for (int i = start; i < start+ 10; i++) {
+    for (int i = start; i < start + 10; i++) {
       CommonModel m = new CommonModel("item " + i, "");
       list.add(m);
     }
