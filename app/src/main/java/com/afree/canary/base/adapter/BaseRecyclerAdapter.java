@@ -23,10 +23,10 @@ public abstract class BaseRecyclerAdapter<T>
 
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
-    doBind(holder.mBaseController, holder.itemView, getItem(position));
+    doBind(holder.mBaseController, holder.itemView, getItem(position), position);
   }
 
-  private void doBind(BaseController controller, View view, T item) {
+  protected void doBind(BaseController controller, View view, T item, int position) {
     controller.bind(view, item);
   }
 
