@@ -15,11 +15,6 @@ import com.afree.canary.widget.recycler.HeaderAndFooterRecyclerAdapter;
 public class HeaderAndFooterTestAdapter extends HeaderAndFooterRecyclerAdapter<String> {
   @Override
   protected View newView(ViewGroup parent, int type) {
-    if (type == ITEM_VIEW_TYPE_HEADER) {
-      return getHeader();
-    } else if (type == ITEM_VIEW_TYPE_FOOTER) {
-      return getFooter();
-    }
     return DesignItemContainer.newInstance(parent);
   }
 

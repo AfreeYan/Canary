@@ -12,9 +12,10 @@ import android.view.ViewGroup;
 import com.afree.canary.R;
 import com.afree.canary.base.BaseFragment;
 import com.afree.canary.sample.main.adapter.HeaderAndFooterTestAdapter;
+import com.afree.canary.sample.main.controller.HeaderAndFooterTestController;
 import com.afree.canary.sample.main.view.DesignItemContainer;
+import com.afree.canary.widget.recycler.ItemDividerDecoration;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -52,14 +53,14 @@ public class OthersFragment extends BaseFragment {
 
     List<String> strings = Arrays.asList(items);
     adapter.setData(strings);
-
+    adapter.setFooterController(new HeaderAndFooterTestController());
+    adapter.setHeaderController(new HeaderAndFooterTestController());
     LinearLayoutManager lm = new LinearLayoutManager(getContext());
     lm.setOrientation(LinearLayoutManager.VERTICAL);
 
     recyclerView.setAdapter(adapter);
     recyclerView.setLayoutManager(lm);
-
-
+    recyclerView.addItemDecoration(new ItemDividerDecoration());
     assert container != null;
     final SwipeRefreshLayout swipeRefreshLayout =
         (SwipeRefreshLayout) container.findViewById(R.id.swipeLayout);
