@@ -14,10 +14,9 @@ import com.afree.canary.base.BaseFragment;
 import com.afree.canary.sample.develop.adapter.RecyclerListAdapter;
 import com.afree.canary.sample.main.model.CommonModel;
 import com.afree.canary.widget.decoration.LoadFooterView;
-import com.afree.canary.widget.load.RecyclerLoadScrollListener;
+import com.afree.canary.widget.recycler.RecyclerLoadScrollListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author afree8909@gmail.com on 7/26/16.

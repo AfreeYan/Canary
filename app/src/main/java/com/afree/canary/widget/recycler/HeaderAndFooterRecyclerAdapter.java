@@ -1,4 +1,4 @@
-package com.afree.canary.widget.load;
+package com.afree.canary.widget.recycler;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;

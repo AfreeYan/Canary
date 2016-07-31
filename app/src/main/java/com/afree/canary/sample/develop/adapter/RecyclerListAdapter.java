@@ -8,7 +8,7 @@ import com.afree.canary.R;
 import com.afree.canary.base.BaseController;
 import com.afree.canary.sample.develop.controller.RecyclerItemController;
 import com.afree.canary.utils.ViewUtils;
-import com.afree.canary.widget.load.HeaderAndFooterRecyclerAdapter;
+import com.afree.canary.widget.recycler.HeaderAndFooterRecyclerAdapter;
 import com.afree.utils.DimensionPixelUtils;
 
 /**

@@ -7,7 +7,7 @@ import com.afree.canary.base.BaseController;
 import com.afree.canary.sample.main.controller.HeaderAndFooterTestController;
 import com.afree.canary.sample.main.controller.StringListController;
 import com.afree.canary.sample.main.view.DesignItemContainer;
-import com.afree.canary.widget.load.HeaderAndFooterRecyclerAdapter;
+import com.afree.canary.widget.recycler.HeaderAndFooterRecyclerAdapter;
 
 /**
  * @author afree8909@gmail.com on 7/25/16.
