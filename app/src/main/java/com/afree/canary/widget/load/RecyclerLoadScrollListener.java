@@ -3,6 +3,7 @@ package com.afree.canary.widget.load;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 
 /**
  * parse recyclerView or AbsListView scroll event to load more event
@@ -13,7 +14,8 @@ public abstract class RecyclerLoadScrollListener extends RecyclerView.OnScrollLi
   /**
    * whether to parse scroll event
    */
-  private boolean mEnabled = true;
+  private boolean mEnabled = true ;
+  private boolean mIsLoaded = true ;
 
   private int mLastVisibleItemPosition;
 
@@ -26,23 +28,35 @@ public abstract class RecyclerLoadScrollListener extends RecyclerView.OnScrollLi
   public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
     super.onScrolled(recyclerView, dx, dy);
 
-    mLastVisibleItemPosition = calculateLastVisibleItemPosition(recyclerView.getLayoutManager());
+    Log.d("test", "y=" + dy);
+    if (dy > 0) {
+      mEnabled = true;
+      mLastVisibleItemPosition = calculateLastVisibleItemPosition(recyclerView.getLayoutManager());
+    } else {
+      mEnabled = false;
+    }
   }
 
   @Override
   public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
     super.onScrollStateChanged(recyclerView, newState);
 
+    Log.d("test", "onScrollStateChanged");
+
     if (!mEnabled) {
       return;
     }
 
+    if (!mIsLoaded) {
+      return;
+    }
     if (newState != RecyclerView.SCROLL_STATE_IDLE) {
       return;
     }
     RecyclerView.LayoutManager lm = recyclerView.getLayoutManager();
     int childCount = lm.getItemCount();
     if ((mPreLoadValue >= (childCount - mLastVisibleItemPosition))) {
+      mIsLoaded = false;
       onLoadMore();
     }
   }
@@ -78,8 +92,8 @@ public abstract class RecyclerLoadScrollListener extends RecyclerView.OnScrollLi
    */
   public abstract void onLoadMore();
 
-  public void setEnabled(boolean enabled) {
-    mEnabled = enabled;
+  public void setLoaded(boolean loaded) {
+    mIsLoaded = loaded;
   }
 
   public void setPreLoadValue(int preLoadValue) {

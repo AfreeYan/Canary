@@ -1,5 +1,6 @@
 package com.afree.canary.widget.load;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -36,15 +37,13 @@ public abstract class HeaderAndFooterRecyclerAdapter<T> extends BaseRecyclerAdap
 
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
-    int headerCount = getHeaderCount();
-    int contentCount = getCount();
 
-    if (position < headerCount) {
+    if (isHeaderPosition(position)) {
       bindHeaderOrFooter(holder.mBaseController, holder.itemView, mHeaderData);
-    } else if (position >= headerCount + contentCount) {
+    } else if (isFooterPosition(position)) {
       bindHeaderOrFooter(holder.mBaseController, holder.itemView, mFooterData);
     } else {
-      super.onBindViewHolder(holder, position - headerCount);
+      super.onBindViewHolder(holder, position - getHeaderCount());
     }
   }
 
@@ -57,11 +56,9 @@ public abstract class HeaderAndFooterRecyclerAdapter<T> extends BaseRecyclerAdap
 
   @Override
   public int getItemViewType(int position) {
-    int headerCount = getHeaderCount();
-    int contentCount = getCount();
-    if (position < headerCount) {
+    if (isHeaderPosition(position)) {
       return ITEM_VIEW_TYPE_HEADER;
-    } else if (position >= headerCount + contentCount) {
+    } else if (isFooterPosition(position)) {
       return ITEM_VIEW_TYPE_FOOTER;
     }
     return super.getItemViewType(position);
@@ -114,5 +111,31 @@ public abstract class HeaderAndFooterRecyclerAdapter<T> extends BaseRecyclerAdap
 
   public void setHeaderController(BaseController headerController) {
     mHeaderController = headerController;
+  }
+
+  public boolean isHeaderPosition(int pos) {
+    return pos < getHeaderCount();
+  }
+
+  public boolean isFooterPosition(int pos) {
+    return pos >= getHeaderCount() + getCount();
+  }
+
+  public InnerSpanSizeLookup getSpanSizeLookup(int spanSize){
+    return new InnerSpanSizeLookup(spanSize);
+  }
+
+  public class InnerSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
+    private int mSpanSize =1;
+    public InnerSpanSizeLookup(int spanSize){
+      mSpanSize = spanSize;
+    }
+    @Override
+    public int getSpanSize(int position) {
+      if(isHeaderPosition(position) || isFooterPosition(position)){
+        return mSpanSize;
+      }
+      return 1;
+    }
   }
 }

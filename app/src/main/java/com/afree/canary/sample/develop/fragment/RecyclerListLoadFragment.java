@@ -48,6 +48,7 @@ public class RecyclerListLoadFragment extends BaseFragment {
       public void onLoadMore() {
         ArrayList<CommonModel> list = makeFakeData(adapter.getCount());
         adapter.addAll(list);
+        setLoaded(true);
       }
     });
 
