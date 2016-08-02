@@ -2,7 +2,6 @@ package com.afree.canary.widget.recycler;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -20,11 +19,26 @@ public class ItemDividerDecoration extends RecyclerView.ItemDecoration {
   private Paint mPaint;
 
   public ItemDividerDecoration() {
-    mPaint = new Paint();
-    mPaint.setStrokeWidth(5);
-    mPaint.setColor(Color.BLUE);
-    mPaint.setAntiAlias(true);
-    mPaint.setPathEffect(new DashPathEffect(new float[] {25.0f, 25.0f}, 0));
+    init(null, 1, Color.GRAY);
+  }
+
+  public ItemDividerDecoration(float width, int color) {
+    init(null, width, color);
+  }
+
+  public ItemDividerDecoration(Drawable drawable) {
+    init(drawable, 0, 0);
+  }
+
+  private void init(Drawable drawable, float width, int color) {
+    if (drawable != null) {
+      mDrawable = drawable;
+    } else {
+      mPaint = new Paint();
+      mPaint.setStrokeWidth(width);
+      mPaint.setColor(color);
+      mPaint.setAntiAlias(true);
+    }
   }
 
   @Override
@@ -76,18 +90,38 @@ public class ItemDividerDecoration extends RecyclerView.ItemDecoration {
       bounds.left = parent.getPaddingLeft() + tX;
       bounds.right = parent.getWidth() - parent.getPaddingLeft() + tX;
 
-      int dividerSize = getDividerSize(childPos, horizontalPosition, params);
-
       bounds.top = child.getBottom() + params.bottomMargin + tY;
-      bounds.bottom = bounds.top + dividerSize;
+      if (mDrawable != null) {
+        int dividerSize = getDividerSize(childPos, horizontalPosition, parent);
+        bounds.bottom = bounds.top + dividerSize;
+      } else {
+        bounds.bottom = bounds.top;
+      }
 
+    } else {
+      int tX = (int) ViewCompat.getTranslationX(child);
+      int tY = (int) ViewCompat.getTranslationY(child);
+
+      RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
+
+      bounds.top = parent.getPaddingTop() + tX;
+      bounds.bottom = parent.getHeight() - parent.getPaddingBottom() + tX;
+
+      bounds.left = child.getLeft() + params.leftMargin + tY;
+      if (mDrawable != null) {
+        int dividerSize = getDividerSize(childPos, horizontalPosition, parent);
+        bounds.right = bounds.left + dividerSize;
+      } else {
+        bounds.right = bounds.left;
+      }
 
     }
 
     return bounds;
   }
 
-  private int getDividerSize(int childPos, int horizontalPosition, RecyclerView.LayoutParams params) {
+  // fix grid case // TODO: 8/2/16  
+  private int getDividerSize(int childPos, int horizontalPosition, RecyclerView parent) {
     int size;
     if (mDrawable != null) {
       size = mDrawable.getIntrinsicHeight();
@@ -111,7 +145,7 @@ public class ItemDividerDecoration extends RecyclerView.ItemDecoration {
   private void fillItemOffset(Rect outRect, int position, int horizontalPosition,
       RecyclerView parent) {
 
-
+    outRect.set(0, 0, 0, getDividerSize(position, horizontalPosition, parent));
   }
 
   /**
@@ -126,5 +160,9 @@ public class ItemDividerDecoration extends RecyclerView.ItemDecoration {
       }
     }
     return position;
+  }
+
+  public void setHorizontal(boolean horizontal) {
+    mIsHorizontal = horizontal;
   }
 }

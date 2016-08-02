@@ -60,6 +60,7 @@ public class OthersFragment extends BaseFragment {
 
     recyclerView.setAdapter(adapter);
     recyclerView.setLayoutManager(lm);
+
     recyclerView.addItemDecoration(new ItemDividerDecoration());
     assert container != null;
     final SwipeRefreshLayout swipeRefreshLayout =
