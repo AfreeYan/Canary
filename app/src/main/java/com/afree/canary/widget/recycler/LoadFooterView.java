@@ -1,4 +1,4 @@
-package com.afree.canary.widget.decoration;
+package com.afree.canary.widget.recycler;
 
 import android.content.Context;
 import android.util.AttributeSet;
