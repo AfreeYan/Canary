@@ -8,9 +8,12 @@ import com.afree.canary.sample.develop.fragment.RecyclerListLoadFragment;
 import com.afree.canary.sample.develop.fragment.RecyclerStaggeredLoadFragment;
 import com.afree.canary.sample.develop.fragment.RecyclerStickyFragment;
 import com.afree.canary.sample.main.model.CommonModel;
+import com.afree.utils.CollectionUtil;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -45,7 +48,17 @@ public class RecyclerFakeDataCreator {
     Gson gson = new Gson();
     Cities cities = gson.fromJson(CITY_LIST, Cities.class);
 
-    return cities == null ? null : cities.data;
+    if (cities == null || CollectionUtil.isEmpty(cities.data)) {
+      return null;
+    }
+    List<CityItemModel> data = cities.data;
+    Collections.sort(data, new Comparator<CityItemModel>() {
+      @Override
+      public int compare(CityItemModel lhs, CityItemModel rhs) {
+        return lhs.getFirstLetter() - rhs.getFirstLetter();
+      }
+    });
+    return data;
   }
 
   private static String CITY_LIST =

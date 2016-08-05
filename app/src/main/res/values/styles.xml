@@ -19,4 +19,21 @@
         <item name="pIndicatorHeight">1dp</item>
     </style>
 
+
+    <declare-styleable name="IndexScroller">
+        <!--
+             Reference to an array resource that will populate the Spinner.  For static content,
+             this is simpler than populating the Spinner programmatically.
+        -->
+        <attr name="entries" />
+        <!-- Text color. -->
+        <attr name="barTextColor" format="color|reference" />
+        <!-- Color of the hover text. -->
+        <attr name="barTextColorHover" format="color|reference" />
+        <!-- Size of the text. Recommended dimension type for text is "sp" for scaled-pixels (example: 15sp). -->
+        <attr name="barTextSize" format="dimension" />
+        <!-- The background color for the IndexScroller. -->
+        <attr name="barBackgroundColor" format="color|reference" />
+    </declare-styleable>
+
 </resources>

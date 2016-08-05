@@ -1,4 +1,4 @@
-package com.afree.canary.sample.design.view;
+package com.afree.canary.widget.bar;
 
 
 import android.content.Context;
@@ -10,6 +10,7 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -118,6 +119,7 @@ public class SideBar extends View {
           if (mCurrentIndex != index) {
             if (index >= 0 && index < getEntriesLength()) {
               mCurrentIndex = index;
+              notifySeletesChanged();
             }
           }
           invalidate();
@@ -128,11 +130,7 @@ public class SideBar extends View {
         break;
       case MotionEvent.ACTION_UP:
       case MotionEvent.ACTION_CANCEL:
-        if (mListener != null) {
-          if (mCurrentIndex >= 0 && mCurrentIndex < getEntriesLength()) {
-            mListener.onItemSelected(mCurrentIndex, String.valueOf(mEntries[mCurrentIndex]));
-          }
-        }
+        notifySeletesChanged();
 
         mIsEventOver = mIsMoving;
         mIsMoving = false;
@@ -144,6 +142,15 @@ public class SideBar extends View {
     }
 
     return true;
+  }
+
+  private void notifySeletesChanged() {
+    Log.d("test","index="+mCurrentIndex+";char="+mEntries[mCurrentIndex]);
+    if (mListener != null) {
+      if (mCurrentIndex >= 0 && mCurrentIndex < getEntriesLength()) {
+        mListener.onItemSelected(mCurrentIndex, String.valueOf(mEntries[mCurrentIndex]));
+      }
+    }
   }
 
   @Override
