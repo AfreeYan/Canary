@@ -4,6 +4,7 @@ import com.afree.canary.sample.develop.controller.Cities;
 import com.afree.canary.sample.develop.fragment.CityItemModel;
 import com.afree.canary.sample.develop.fragment.RecyclerGridLoadFragment;
 import com.afree.canary.sample.develop.fragment.RecyclerHFFragment;
+import com.afree.canary.sample.develop.fragment.RecyclerItemOprationFragment;
 import com.afree.canary.sample.develop.fragment.RecyclerListLoadFragment;
 import com.afree.canary.sample.develop.fragment.RecyclerStaggeredLoadFragment;
 import com.afree.canary.sample.develop.fragment.RecyclerStickyFragment;
@@ -24,7 +25,7 @@ public class RecyclerFakeDataCreator {
   private static final String[] NAMES = {
       "Header and Footer", "List with refresh and load more",
       "Grid with refresh and load more", "Staggered with refresh and load more",
-      "Sticky Recycler"
+      "Sticky Recycler", "Swipe and Drag for recycler"
   };
 
   private static final String[] FRAGMENT_NAMES = {
@@ -32,7 +33,8 @@ public class RecyclerFakeDataCreator {
       RecyclerListLoadFragment.class.getName(),
       RecyclerGridLoadFragment.class.getName(),
       RecyclerStaggeredLoadFragment.class.getName(),
-      RecyclerStickyFragment.class.getName()
+      RecyclerStickyFragment.class.getName(),
+      RecyclerItemOprationFragment.class.getName()
   };
 
   public static List<CommonModel> create() {

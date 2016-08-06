@@ -110,6 +110,19 @@ public abstract class BaseRecyclerDataAdapter<T, VH extends RecyclerView.ViewHol
     removeItem(i);
   }
 
+  public void swapItem(int sourcePosition, int targetPosition) {
+    checkData();
+    if (sourcePosition < targetPosition) {
+      for (int i = sourcePosition; i < targetPosition; i++) {
+        Collections.swap(mData, i, i + 1);
+      }
+    } else {
+      for (int i = targetPosition; i < sourcePosition; i++) {
+        Collections.swap(mData, i, i + 1);
+      }
+    }
+    notifyItemMoved(sourcePosition, targetPosition);
+  }
 
   private void checkData() {
     if (mData == null) {
