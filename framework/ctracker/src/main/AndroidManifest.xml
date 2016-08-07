@@ -1,4 +1,4 @@
-<manifest package="com.afree.utils"
+<manifest package="com.afree.ctracker"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
