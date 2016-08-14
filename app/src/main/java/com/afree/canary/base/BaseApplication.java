@@ -1,7 +1,10 @@
 package com.afree.canary.base;
 
 import android.app.Application;
+import android.util.Log;
 
+import com.afree.ctracker.CrashTracker;
+import com.afree.ctracker.collector.CrashHandler;
 import com.afree.utils.GlobalConfig;
 
 /**
@@ -18,6 +21,9 @@ public class BaseApplication extends Application {
 
   private void init() {
     initFramework();
+
+    CrashTracker.start(this);
+
   }
 
   private void initFramework() {

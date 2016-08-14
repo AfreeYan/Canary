@@ -28,6 +28,7 @@ public class DesignActivity extends BaseActivity {
     Fragment f = Fragment.instantiate(this, fragmentName);
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fl_base_container, f).commit();
+
   }
 
   public static void launch(Context context, String fragmentName) {
