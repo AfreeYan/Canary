@@ -18,7 +18,6 @@ public class RecyclerItemController extends BaseController<View, CommonModel> {
     }
     TextView tv = (TextView) view.findViewById(R.id.tv_common_card);
     if (tv != null) {
-      tv = null;
       tv.setText(model.getName());
     }
   }
