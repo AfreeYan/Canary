@@ -29,21 +29,6 @@ public class CrashNativeStorage {
     return mContext.getDir(NAME_STORAGE, Context.MODE_PRIVATE);
   }
 
-  @NonNull
-  public File[] getStorageFiles() {
-    File[] files = getStorageFolder().listFiles();
-    if (files == null) {
-      return new File[0];
-    }
-    Arrays.sort(files, new Comparator<File>() {
-      @Override
-      public int compare(File lhs, File rhs) {
-        return (int) (lhs.lastModified() - rhs.lastModified());
-      }
-    });
-    return files;
-  }
-
   public File createStorageFile(String fileName) {
     return new File(getStorageFolder(), fileName);
   }

@@ -12,7 +12,7 @@
 
 
         <service
-            android:name="com.afree.ctracker.collector.CrashSender"
+            android:name="com.afree.ctracker.collector.CrashSenderService"
             android:exported="true"
             android:process=":ctracker"
             />

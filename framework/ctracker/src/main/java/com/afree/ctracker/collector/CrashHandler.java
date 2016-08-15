@@ -12,9 +12,11 @@ import com.afree.ctracker.model.ReportModel;
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
   private final Thread.UncaughtExceptionHandler defaultExceptionHandler;
   private final Context mContext;
+  private CrashNativeStorage mStorage;
 
-  public CrashHandler(Context context) {
+  public CrashHandler(Context context,CrashNativeStorage storage) {
     mContext = context;
+    mStorage = storage;
     defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
     Thread.setDefaultUncaughtExceptionHandler(this);
   }
@@ -23,8 +25,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
   public void uncaughtException(Thread thread, Throwable ex) {
     try {
       handleException(thread, ex);
-    } catch (Throwable t) {
-      // do nothing
     } finally {
       defaultHandleException(thread, ex);
     }
@@ -52,8 +52,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
 
   private void saveDumpToNative(ReportModel model) {
-    CrashNativeStorage storage = new CrashNativeStorage(mContext);
-    storage.store(model);
+    mStorage.store(model);
   }
 
 
